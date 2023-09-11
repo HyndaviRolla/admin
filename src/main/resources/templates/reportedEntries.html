@@ -1,0 +1,57 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+</head>
+<body>
+    <h1>Reported Comments</h1>
+ 
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Comment Content</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr th:each="reportedComment : ${reportedComments}">
+                <td th:text="${reportedComment.id}"></td>
+                <td th:text="${reportedComment.commentContent}"></td>
+                <td>
+    <form method="post" th:action="@{/Admin/delete-comment}" th:object="${reportedComment}">
+    <input type="hidden" name="commentId" th:value="${reportedComment.id}" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+        </td>
+            </tr>
+        </tbody>
+    </table>
+ <hr>
+ <h1>Reported Posts</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Post ID</th>
+                <th>Post Content</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="reportedPost : ${reportedPosts}">
+                <td th:text="${reportedPost.postId}">Post ID</td>
+                <td th:text="${reportedPost.postContent}">Post Content</td>
+                <td>
+                    <form th:action="@{/Admin/delete-post}" method="post">
+                        <input type="hidden" name="postId" th:value="${reportedPost.postId}" />
+                        <button type="submit">Delete Post</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+        
+</body>
+</html>
